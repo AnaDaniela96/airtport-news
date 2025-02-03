@@ -42,4 +42,9 @@ export class AmadeusService {
 
     return this.http.get(url, { headers });
   }
+
+  // 4 crear la url dinámica
+  getAirportByIata(iataCode: string) {
+    return this.http.get<any>(`https://test.api.amadeus.com/v1/reference-data/locations?keyword=${iataCode}&subType=AIRPORT`);
+  }  
 }
