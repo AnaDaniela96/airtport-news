@@ -1,0 +1,5 @@
+<div *ngIf="airport">
+    <h2>{{ airport.name }} ({{ airport.iataCode }})</h2>
+    <p><strong>Ciudad:</strong> {{ airport.address.cityName }}</p>
+    <p><strong>País:</strong> {{ airport.address.countryName }}</p>
+</div>
