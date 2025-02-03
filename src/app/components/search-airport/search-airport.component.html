@@ -1,0 +1,16 @@
+<main class="container my-4">
+    <h1 class="text-center title">Dónde sale mi vuelo.com <i class='bx bxs-plane-alt bx-tada'></i></h1>
+</main>
+
+<div class="container mt-4">
+    <h2 class="text-start p-2 subtitle">Encuentra la ubicación de tu aereopuerto y llega con la mejor ruta.</h2>
+  
+    <input type="text" class="form-control mb-3" (input)="searchAirport($event)" placeholder="Escribe el nombre o código IATA">
+
+    <ul class="list-group mt-3">
+        <li *ngFor="let airport of airports" class="list-group-item">
+            <strong>{{ airport.name }}</strong> ({{ airport.iataCode }}) - {{ airport.address.cityName }}
+        </li>
+    </ul>
+  </div>
+  
