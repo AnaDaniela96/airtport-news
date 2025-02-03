@@ -4,13 +4,14 @@
 
 <div class="container mt-4">
     <h2 class="text-start p-2 subtitle">Encuentra la ubicación de tu aereopuerto y llega con la mejor ruta.</h2>
-  
-    <input type="text" class="form-control mb-3" (input)="searchAirport($event)" placeholder="Escribe el nombre o código IATA">
+
+    <input type="text" class="form-control mb-3" (input)="searchAirport($event)"
+        placeholder="Escribe el nombre o código IATA">
 
     <ul class="list-group mt-3">
         <li *ngFor="let airport of airports" class="list-group-item">
             <strong>{{ airport.name }}</strong> ({{ airport.iataCode }}) - {{ airport.address.cityName }}
+            <a [routerLink]="['/airport', airport.iataCode]" class="btn btn-primary">Ver detalles</a>
         </li>
     </ul>
-  </div>
-  
+</div>

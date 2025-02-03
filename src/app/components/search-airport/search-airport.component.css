@@ -8,3 +8,28 @@
     color: #132A44;
     font-size: 1.5rem;
 }
+
+.form-control::placeholder {
+    opacity: 0.8;
+    font-size: 1.2rem;
+    font-family: "Raleway", serif;
+    color: #132A44;
+    font-weight: 200;
+}
+
+.form-control {
+    color: #132A44;
+    border-radius: 20px;
+}
+
+.form-control:focus {
+    color: #132A44 !important;
+    outline: 0;
+}
+
+.list-group-item:hover {
+    background-color: #132A44;
+    color: #669bbc;
+    cursor: pointer;
+}
+

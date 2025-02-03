@@ -2,19 +2,20 @@ import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import TomSelect from 'tom-select';
 import { AmadeusService } from '../../amadeus.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-search-airport',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './search-airport.component.html',
   styleUrl: './search-airport.component.css'
 })
-export class SearchAirportComponent implements AfterViewInit {
+export class SearchAirportComponent  implements AfterViewInit {
   @ViewChild('airportSelect', { static: false }) selectRef!: ElementRef;
   airports: any[] = [];
   tomSelectInstance!: TomSelect;
 
-  constructor(private amadeusService: AmadeusService) { }
+  constructor(private amadeusService: AmadeusService) {}
 
   ngOnInit() {
     this.amadeusService.initAuth();
