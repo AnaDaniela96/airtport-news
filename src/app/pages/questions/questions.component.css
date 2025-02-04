@@ -1,0 +1,13 @@
+.title {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.details {
+    font-size: 1.2rem;
+}
+
+.summary {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
