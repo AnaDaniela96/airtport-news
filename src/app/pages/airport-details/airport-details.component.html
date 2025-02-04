@@ -1,12 +1,48 @@
 <app-header></app-header>
 
-<div *ngIf="airport">
-    <h2>{{ airport.name }} ({{ airport.iataCode }})</h2>
-    <p><strong>Ciudad:</strong> {{ airport.address.cityName }}</p>
-    <p><strong>País:</strong> {{ airport.address.countryName }}</p>
-    <p><strong>Nombre detallado:</strong> {{ airport.detailedName }}</p>
-    <p><strong>Latitud:</strong> {{ airport.geoCode.latitude }}</p>
-    <p><strong>Longitud:</strong> {{ airport.geoCode.longitude }}</p>
-    <p><strong>Zona horaria:</strong> {{ airport.timeZoneOffset }}</p>
-  </div>
-  
+<div class="container">
+    <div *ngIf="airport">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center title p-3">{{ airport.name }} ({{ airport.iataCode }})</h1>
+                <h2 class="text-center subtitle">{{ airport.address.cityName }} <i class='bx bxs-map'></i> </h2>
+            </div>
+
+            <div class="col-md-6 my-4">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3755.466989546201!2d-99.03139112113287!3d19.73530428354887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d18dd3a04506ed%3A0x6c0638444fed4586!2sAeropuerto%20Internacional%20Felipe%20%C3%81ngeles!5e0!3m2!1ses!2smx!4v1738687351793!5m2!1ses!2smx"
+                    width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="col-md-6 my-4">
+                <h3 class="text-center p-2">Información del aereopuerto</h3>
+
+                <p class="px-2"><strong>Nombre detallado:</strong> {{ airport.detailedName }} </p>
+
+                <p class="px-2"><strong>País:</strong> {{ airport.address.countryName }} </p>
+
+                <p class="px-2"><strong>Zona horaria:</strong> {{ airport.timeZoneOffset }} hrs.</p>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center" colspan="2"><h3>Datos de geolocalización</h3></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Latitud</th>
+                            <td>{{ airport.geoCode.latitude }}</td>
+                        </tr>
+                        <tr>
+                            <th>Longitud</th>
+                            <td>{{ airport.geoCode.longitude }}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
