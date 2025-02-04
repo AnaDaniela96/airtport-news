@@ -1,58 +1,53 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import TomSelect from 'tom-select';
+import { Component } from '@angular/core';
 import { AmadeusService } from '../../amadeus.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-search-airport',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './search-airport.component.html',
   styleUrl: './search-airport.component.css'
 })
-export class SearchAirportComponent implements AfterViewInit {
-  @ViewChild('airportSelect', { static: false }) selectRef!: ElementRef;
-  airports: any[] = [];
-  tomSelectInstance!: TomSelect;
+export class SearchAirportComponent  {
+  searchQuery: string = ''; // Stores the search text
+  suggestions: any[] = []; // Stores API suggestions
+  selectedAirports: any[] = []; // Stores the selected airports
 
-  constructor(private amadeusService: AmadeusService) { }
+  constructor(private amadeusService: AmadeusService) {}
 
   ngOnInit() {
-    this.amadeusService.initAuth();
+    this.amadeusService.initAuth(); // Initializes authentication
   }
 
-  ngAfterViewInit() {
-    this.initTomSelect();
-  }
-
-  initTomSelect() {
-    this.tomSelectInstance = new TomSelect(this.selectRef.nativeElement, {
-      valueField: 'iataCode',
-      labelField: 'name',
-      searchField: ['name', 'iataCode'],
-      maxItems: 1,
-      create: false
-    });
-  }
-
-  searchAirport(event: any) {
-    const keyword = event.target.value;
-    if (keyword.length >= 3) {
-      this.amadeusService.searchAirports(keyword).subscribe(data => {
-        this.airports = data.data;
-        this.updateTomSelect();
+  // Search for airports as the user types
+  searchAirports() {
+    if (this.searchQuery.length >= 3) {
+      this.amadeusService.searchAirports(this.searchQuery).subscribe(response => {
+        if (response && response.data) {
+          this.suggestions = response.data; //Update suggestions
+          this.amadeusService.saveSearch(this.searchQuery); // Save search
+        } else {
+          this.suggestions = []; // Clean if no results
+        }
       });
+    } else {
+      this.suggestions = []; // Clean up if the text is too short
     }
   }
 
-  updateTomSelect() {
-    if (this.tomSelectInstance) {
-      this.tomSelectInstance.clearOptions();
-      this.airports.forEach(airport => {
-        this.tomSelectInstance.addOption({
-          value: airport.iataCode,
-          text: `${airport.name} (${airport.iataCode}) - ${airport.address.cityName}`
-        });
-      });
+  // Clean up if the text is too short
+  selectAirport(airport: any) {
+    if (!this.selectedAirports.some(a => a.iataCode === airport.iataCode)) {
+      this.selectedAirports.push(airport); // Add to shortlist
     }
+    this.searchQuery = ''; // Clean up the input
+    this.suggestions = []; // Clean up suggestoins
+  }
+
+  // Remove an airport from the list of selected airports
+  removeAirport(airport: any) {
+    this.selectedAirports = this.selectedAirports.filter(a => a.iataCode !== airport.iataCode);
   }
 }
