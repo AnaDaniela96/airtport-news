@@ -4,3 +4,14 @@
     <h1 class="p-2 text-center title">Historial de búsqueda</h1>
 </div>
 
+<div class="history-container">
+    <!-- Mostrar el historial de búsquedas -->
+    <ul *ngIf="searchHistory.length > 0">
+        <li *ngFor="let search of searchHistory">
+            <strong>{{ search.query }}</strong> - {{ search.timestamp | date:'medium' }}
+        </li>
+    </ul>
+
+    <!-- Mensaje si no hay búsquedas -->
+    <p *ngIf="searchHistory.length === 0">No hay búsquedas recientes.</p>
+</div>
