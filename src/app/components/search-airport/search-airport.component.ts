@@ -22,7 +22,11 @@ export class SearchAirportComponent  implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.initTomSelect();
+    if (this.selectRef && this.selectRef.nativeElement) {
+      this.initTomSelect();
+    } else {
+      console.error('selectRef is not defined');
+    }
   }
 
   initTomSelect() {
@@ -55,5 +59,5 @@ export class SearchAirportComponent  implements AfterViewInit {
         });
       });
     }
-  }
+  }  
 }
