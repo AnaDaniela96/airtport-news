@@ -43,8 +43,21 @@ export class AmadeusService {
     return this.http.get(url, { headers });
   }
 
-  // 4 crear la url dinámica
-  getAirportByIata(iataCode: string) {
-    return this.http.get<any>(`https://test.api.amadeus.com/v1/reference-data/locations?keyword=${iataCode}&subType=AIRPORT`);
-  }  
+  getAirportByIata(iataCode: string): Observable<any> {
+    if (!this.accessToken) {
+      console.error('Token no disponible. Se debe autenticar primero.');
+      return new Observable(observer => {
+        observer.error('No hay token disponible.');
+      });
+    }
+
+    const url = `${this.apiUrl}/reference-data/locations?keyword=${iataCode}&subType=AIRPORT`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.accessToken}`
+    });
+
+    return this.http.get<any>(url, { headers });
+  }
+
+
 }
