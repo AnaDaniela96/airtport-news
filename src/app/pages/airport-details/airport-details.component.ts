@@ -10,7 +10,9 @@ import { HeaderComponent } from '../../components/header/header.component';
   templateUrl: './airport-details.component.html',
   styleUrl: './airport-details.component.css'
 })
-export class AirportDetailsComponent implements OnInit {
+
+export class AirportDetailsComponent {
+// export class AirportDetailsComponent implements OnInit {
   airport: any ;
 
   constructor (private route: ActivatedRoute, private amadeusService: AmadeusService ) {}
@@ -19,7 +21,7 @@ export class AirportDetailsComponent implements OnInit {
     const iataCode = this.route.snapshot.paramMap.get('iataCode');
     if ( iataCode ) {
       this.amadeusService.getAirportByIata(iataCode).subscribe( data => {
-        this.airport = data.data[0]; // Extraer el primer elemento del array
+        this.airport = data.data[0]; // Extract the first element of the array
         console.log(this.airport);
       })
     }
