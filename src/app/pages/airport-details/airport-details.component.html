@@ -1,5 +1,12 @@
+<app-header></app-header>
+
 <div *ngIf="airport">
     <h2>{{ airport.name }} ({{ airport.iataCode }})</h2>
     <p><strong>Ciudad:</strong> {{ airport.address.cityName }}</p>
     <p><strong>País:</strong> {{ airport.address.countryName }}</p>
-</div>
+    <p><strong>Nombre detallado:</strong> {{ airport.detailedName }}</p>
+    <p><strong>Latitud:</strong> {{ airport.geoCode.latitude }}</p>
+    <p><strong>Longitud:</strong> {{ airport.geoCode.longitude }}</p>
+    <p><strong>Zona horaria:</strong> {{ airport.timeZoneOffset }}</p>
+  </div>
+  
