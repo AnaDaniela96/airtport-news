@@ -5,20 +5,37 @@
 <div class="container mt-4">
     <h2 class="text-start p-2 subtitle">Encuentra la ubicación de tu aereopuerto y llega con la mejor ruta.</h2>
 
-    <input type="text" class="form-control mb-3" (input)="searchAirport($event)"
-        placeholder="Escribe el nombre o código IATA">
+    <div class="search-airport-container">
+        <!-- Search Input -->
+        <input class="form-control mb-3" type="text" [(ngModel)]="searchQuery" (input)="searchAirports()"
+            placeholder="Escribe el nombre o código del aeropuerto" />
 
-    <ul class="list-group mt-3">
-        <li *ngFor="let airport of airports" class="list-group-item">
-            <strong>{{ airport.name }}</strong> ({{ airport.iataCode }}) - {{ airport.address.cityName }}
-            <a [routerLink]="['/airport', airport.iataCode]" class="btn btn-primary">Ver detalles</a>
-        </li>
-    </ul>
+        <!-- List of suggestions -->
+        <div *ngIf="suggestions.length > 0">
+            <div  *ngFor="let airport of suggestions" (click)="selectAirport(airport)">
+                {{ airport.name }} ({{ airport.iataCode }}) lista uno
+            </div>
+        </div>
+
+    </div>
+
+    <!-- List of selected airports -->
+    <table class="table">
+        <tbody *ngFor="let airport of selectedAirports" class="selected-item">
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        <h3 class="text-start p-2 subtitle"> {{ airport.name }} </h3>
+                    </th>
+                </tr>
+            </thead>
+            <tr>
+                <th class="text-center">({{ airport.iataCode }}) </th>
+                <th class="text-center"> <a [routerLink]="['/airport', airport.iataCode]"
+                        class="btn btn-primary btn-sm me-2">Ver detalles</a></th>
+                <!-- <th class="text-center"><button (click)="removeAirport(airport)"
+                        class="btn btn-danger btn-sm float-end"><i class='bx bx-trash'></i></button></th> -->
+            </tr>
+        </tbody>
+    </table>
 </div>
-
-<!-- <h3>Historial de Búsqueda</h3>
-<ul class="list-group">
-  <li *ngFor="let airport of amadeusService.getSearchHistory()" class="list-group-item">
-    <strong>{{ airport.name }}</strong> ({{ airport.iataCode }})
-  </li>
-</ul> -->
